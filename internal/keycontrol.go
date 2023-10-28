@@ -1,4 +1,4 @@
-package main
+package internal
 
 import (
 	"fmt"
@@ -7,7 +7,6 @@ import (
 	"sync"
 	"syscall"
 	"time"
-
 	"github.com/nsf/termbox-go"
 )
 
@@ -17,7 +16,7 @@ var (
 	stopAnimation   chan bool
 )
 
-func keycontrol() {
+func Keycontrol(animal AnimalContext) {
 	err := termbox.Init()
 	if err != nil {
 		panic(err)
@@ -27,7 +26,7 @@ func keycontrol() {
 	stopAnimation = make(chan bool)
 	animationTicker = time.NewTicker(100 * time.Millisecond)
 
-	go runAnimation()
+	go runAnimation(animal)
 
 	// Handle signals to gracefully stop the animation
 	signalCh := make(chan os.Signal, 1)
@@ -55,27 +54,28 @@ mainLoop:
 	animationMutex.Lock()
 }
 
-func runAnimation() {
+func runAnimation(animal AnimalContext) {
 	for {
 		select {
 		case <-stopAnimation:
 			return
 		case <-animationTicker.C:
 			animationMutex.Lock()
-			printAnimation()
+			printAnimation(animal)
 			animationMutex.Unlock()
 		}
 	}
 }
 
-func printAnimation() {
+func printAnimation(animal AnimalContext) {
 	// Replace this with your animation logic
 	fmt.Print("\033[H") // Move cursor to the top-left corner of the screen
-	fmt.Println("Animating...")
+	animal.Behavior.Print()
+	fmt.Printf("1) Feed 	2) Clean	3) Play		4) Shop: \n")
 }
 
 func handleKeyEvent(ev termbox.Event) {
 	// Handle user input events as needed
 	// You can add logic here to respond to specific key presses
-	fmt.Printf("Key pressed: %c\n", ev.Ch)
+	fmt.Printf("you pressed %c\n", ev.Ch)
 }

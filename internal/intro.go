@@ -12,28 +12,28 @@ func Start() {
 
 	var option string
 
-	_, err := fmt.Scan(&option)
+	_, err := fmt.Scan(&option) 			//Getting number of animal
 
 	handleErrors(err)
 	err = check(option)
 	if err != nil {
-		fmt.Println(err)
+		fmt.Println(err)					//Checking if number of that animal exists
 	}
 
-	animalBehavior := createAnimal(option)
+	animalBehavior := createAnimal(option)		//Creating Animal Object
 	if animalBehavior == nil {
 		fmt.Println("Failed to create animal")
 		return
 	}
 
 	// Create an instance of Animal and set its behavior
-	animalStaregy := &AnimalContext{
-		behavior: animalBehavior,
+	animalContext := &AnimalContext{						//Wrapping animal object into context
+		Behavior: animalBehavior,
 	}
-	animalStaregy.behavior.Print()
-	// for {
-		
-	// }
+	
+	for {
+		Keycontrol(*animalContext)
+	}
 
 	}
 

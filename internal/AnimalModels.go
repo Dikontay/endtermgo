@@ -3,37 +3,42 @@ package internal
 //STRATEGY
 
 type AnimalContext struct {
-	behavior AnimalStaregy
+	Behavior AnimalStaregy
 }
 
 type AnimalStaregy interface {
 	Eat() string
 	BeDirty() string
 	Play() string
+	
 	Print()
+
+	Register()
+	UpdateStats()
 }
 
-type Dog struct{
+type Dog struct {
 	Name string
+}
 
-}
-type Bear struct{
+type Bear struct {
 	Name string
+}
 
-}
-type Owl struct{
+type Owl struct {
 	Name string
 }
+
 func (d *Bear) Eat() string {
-    return "++++++++++"
+	return "++++++++++"
 }
 
 func (d *Bear) BeDirty() string {
-    return "++++++++++"
+	return "++++++++++"
 }
 
 func (d *Bear) Play() string {
-    return "++++++++++"
+	return "++++++++++"
 }
 
 func (d *Bear) Print() {
@@ -41,15 +46,15 @@ func (d *Bear) Print() {
 }
 
 func (d *Owl) Eat() string {
-    return "++++++++++"
+	return "++++++++++"
 }
 
 func (d *Owl) BeDirty() string {
-    return "++++++++++"
+	return "++++++++++"
 }
 
 func (d *Owl) Play() string {
-    return "++++++++++"
+	return "++++++++++"
 }
 
 func (d *Owl) Print() {
@@ -57,39 +62,35 @@ func (d *Owl) Print() {
 }
 
 func (d *Dog) Eat() string {
-    return "++++++++++"
+	return "++++++++++"
 }
 
 func (d *Dog) BeDirty() string {
-    return "++++++++++"
+	return "++++++++++"
 }
 
 func (d *Dog) Play() string {
-    return "++++++++++"
+	return "++++++++++"
 }
 
 func (d *Dog) Print() {
 	PrintAnimalPicture("dog")
 }
 
-type Cat struct{
+type Cat struct {
 	Name string
 }
 
 func (c *Cat) Eat() string {
-    return "++++++++++"
+	return "++++++++++"
 }
 
 func (c *Cat) BeDirty() string {
-    return "++++++++++"
+	return "++++++++++"
 }
 
 func (c *Cat) Play() string {
-    return "++++++++++"
+	return "++++++++++"
 }
+
 //////////////////////////////////////////////////////////////////
-
-
-
-
-
