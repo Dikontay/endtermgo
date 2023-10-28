@@ -10,6 +10,15 @@ type AnimalStaregy interface {
 	ChangeCleanness(bool)
 	ChangeEat(bool)
 	ChangeMood(bool)
+
+	GetTimeToBeDirty() int
+	GetTimeToEat() int
+	GetTimeToPlay() int
+
+	GetMood() int
+	GetFood() int
+	GetCleanness() int
+
 	Print()
 }
 
@@ -161,4 +170,99 @@ func (c *Cat) ChangeMood(b bool) {
 	}
 }
 
+func (d *Dog) GetCleanness() int {
+	return d.Clean
+}
+
+func (d *Cat) GetCleanness() int {
+	return d.Clean
+}
+
+func (d *Owl) GetCleanness() int {
+	return d.Clean
+}
+
+func (d *Bear) GetCleanness() int {
+	return d.Clean
+}
+
+func (d *Dog) GetMood() int {
+	return d.Mood
+}
+
+func (d *Cat) GetMood() int {
+	return d.Mood
+}
+
+func (d *Owl) GetMood() int {
+	return d.Mood
+}
+
+func (d *Bear) GetMood() int {
+	return d.Mood
+}
+
+func (d *Dog) GetFood() int {
+	return d.Food
+}
+
+func (d *Cat) GetFood() int {
+	return d.Food
+}
+
+func (d *Owl) GetFood() int {
+	return d.Food
+}
+
+func (d *Bear) GetFood() int {
+	return d.Food
+}
+
+func (d *Dog) GetTimeToBeDirty() int {
+	return d.TimeToBeDirty
+}
+
+func (d *Cat) GetTimeToBeDirty() int {
+	return d.TimeToBeDirty
+}
+
+func (d *Owl) GetTimeToBeDirty() int {
+	return d.TimeToBeDirty
+}
+
+func (d *Bear) GetTimeToBeDirty() int {
+	return d.TimeToBeDirty
+}
+
+func (d *Dog) GetTimeToEat() int {
+	return d.TimeToEat
+}
+
+func (d *Cat) GetTimeToEat() int {
+	return d.TimeToEat
+}
+
+func (d *Owl) GetTimeToEat() int {
+	return d.TimeToEat
+}
+
+func (d *Bear) GetTimeToEat() int {
+	return d.TimeToEat
+}
+
+func (d *Dog) GetTimeToPlay() int {
+	return d.TimeToPlay
+}
+
+func (d *Cat) GetTimeToPlay() int {
+	return d.TimeToPlay
+}
+
+func (d *Owl) GetTimeToPlay() int {
+	return d.TimeToPlay
+}
+
+func (d *Bear) GetTimeToPlay() int {
+	return d.GetTimeToPlay()
+}
 //////////////////////////////////////////////////////////////////

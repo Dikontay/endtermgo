@@ -70,6 +70,25 @@ func runAnimation(animal AnimalContext) {
 func printAnimation(animal AnimalContext) {
 	// Replace this with your animation logic
 	fmt.Print("\033[H") // Move cursor to the top-left corner of the screen
+	
+	fmt.Print("Food: ")
+	for i := 0; i < animal.Behavior.GetFood(); i++ {
+		fmt.Print(string('⭓'))
+	}
+	fmt.Println()
+
+	fmt.Print("Cleanness: ")
+	for i := 0; i < animal.Behavior.GetCleanness(); i++ {
+		fmt.Print(string('⭓'))
+	}
+	fmt.Println()
+
+	fmt.Print("Mood: ")
+	for i := 0; i < animal.Behavior.GetMood(); i++ {
+		fmt.Print(string('⭓'))
+	}
+	fmt.Println()
+
 	animal.Behavior.Print()
 	fmt.Printf("1) Feed 	2) Clean	3) Play		4) Shop: \n")
 }

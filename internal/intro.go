@@ -4,6 +4,7 @@ import (
 	"errors"
 	"fmt"
 	"os"
+	"time"
 )
 
 func Start() {
@@ -12,36 +13,36 @@ func Start() {
 
 	var option string
 
-	_, err := fmt.Scan(&option) 			//Getting number of animal
+	_, err := fmt.Scan(&option) //Getting number of animal
 
 	handleErrors(err)
 	err = check(option)
 	if err != nil {
-		fmt.Println(err)					//Checking if number of that animal exists
+		fmt.Println(err) //Checking if number of that animal exists
 	}
 
-	animalBehavior := createAnimal(option)	
+	animalBehavior := createAnimal(option)
 	//Creating Animal Object
 	if animalBehavior == nil {
 		fmt.Println("Failed to create animal")
 		return
 	}
 
-
 	// Create an instance of Animal and set its behavior
-	animalContext := &AnimalContext{						//Wrapping animal object into context
+	animalContext := &AnimalContext{ //Wrapping animal object into context
 		Behavior: animalBehavior,
-
 	}
-	
+	timer := &Timer{
+		secondSinceStart:   time.Now(),
+		animal: animalBehavior,
+	}
 
 	for {
 		Keycontrol(*animalContext)
+		timer.updateState(time.Now().Second())
 	}
 
-	}
-
-
+}
 
 func createAnimal(num string) AnimalStaregy {
 
