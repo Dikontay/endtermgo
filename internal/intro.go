@@ -37,10 +37,8 @@ func Start() {
 		animal: animalBehavior,
 	}
 
-	for {
-		Keycontrol(*animalContext)
-		timer.updateState(time.Now().Second())
-	}
+	Keycontrol(animalContext, timer)
+
 
 }
 

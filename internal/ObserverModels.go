@@ -21,8 +21,13 @@ type StatsObserver interface {
 
 func (t *Timer) updateState(timenow int) {
 
-	t.animal.ChangeEat((timenow-t.secondSinceStart.Second())%t.animal.GetTimeToEat()== 0)
-	t.animal.ChangeMood(timenow-t.secondSinceStart.Second()%t.animal.GetTimeToPlay() == 0)
-	t.animal.ChangeCleanness(t.secondSinceStart.Second()%t.animal.GetTimeToBeDirty() == 0)
-
+	if (timenow-t.secondSinceStart.Second())%t.animal.GetTimeToEat() == 0 {
+		t.animal.ChangeEat(false)
+	}
+	if timenow-t.secondSinceStart.Second()%t.animal.GetTimeToPlay() == 0 {
+		t.animal.ChangeMood(false)
+	}
+	if timenow-t.secondSinceStart.Second()%t.animal.GetTimeToBeDirty() == 0{
+		t.animal.ChangeCleanness(false)
+	}
 }

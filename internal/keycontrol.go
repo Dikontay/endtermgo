@@ -4,9 +4,11 @@ import (
 	"fmt"
 	"os"
 	"os/signal"
+	"strconv"
 	"sync"
 	"syscall"
 	"time"
+
 	"github.com/nsf/termbox-go"
 )
 
@@ -16,7 +18,7 @@ var (
 	stopAnimation   chan bool
 )
 
-func Keycontrol(animal AnimalContext) {
+func Keycontrol(animal *AnimalContext, timer *Timer) {
 	err := termbox.Init()
 	if err != nil {
 		panic(err)
@@ -45,7 +47,9 @@ mainLoop:
 				break mainLoop
 			}
 			// Handle other key events as needed
-			handleKeyEvent(ev)
+			timer.updateState(time.Now().Second())
+			fmt.Println(strconv.Itoa(animal.Behavior.GetFood()) + " " + strconv.Itoa(animal.Behavior.GetCleanness()) + " " +strconv.Itoa(animal.Behavior.GetMood()))
+			handleKeyEvent(ev, animal)
 		}
 	}
 
@@ -54,7 +58,7 @@ mainLoop:
 	animationMutex.Lock()
 }
 
-func runAnimation(animal AnimalContext) {
+func runAnimation(animal *AnimalContext) {
 	for {
 		select {
 		case <-stopAnimation:
@@ -67,7 +71,7 @@ func runAnimation(animal AnimalContext) {
 	}
 }
 
-func printAnimation(animal AnimalContext) {
+func printAnimation(animal *AnimalContext) {
 	// Replace this with your animation logic
 	fmt.Print("\033[H") // Move cursor to the top-left corner of the screen
 	
@@ -93,8 +97,22 @@ func printAnimation(animal AnimalContext) {
 	fmt.Printf("1) Feed 	2) Clean	3) Play		4) Shop: \n")
 }
 
-func handleKeyEvent(ev termbox.Event) {
+func handleKeyEvent(ev termbox.Event, animal *AnimalContext) {
 	// Handle user input events as needed
 	// You can add logic here to respond to specific key presses
+	switch ev.Ch {
+	case '1' :
+		animal.Behavior.ChangeEat(true)
+		break
+	case '2':
+		animal.Behavior.ChangeCleanness(true)
+		break
+	case '3':
+		animal.Behavior.ChangeMood(true)
+		break
+	default:
+		fmt.Println("Wrong Button!")
+	}
+
 	fmt.Printf("you pressed %c\n", ev.Ch)
 }
