@@ -31,6 +31,7 @@ func Start() {
 		Behavior: animalBehavior,
 	}
 	
+
 	for {
 		Keycontrol(*animalContext)
 	}

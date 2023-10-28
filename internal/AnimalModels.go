@@ -12,9 +12,6 @@ type AnimalStaregy interface {
 	Play() string
 	
 	Print()
-
-	Register()
-	UpdateStats()
 }
 
 type Dog struct {
