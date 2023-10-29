@@ -37,7 +37,8 @@ func Start() {
 		animal: animalBehavior,
 	}
 
-	Keycontrol(animalContext, timer)
+	go timer.updateState()
+	Keycontrol(animalContext)
 
 
 }

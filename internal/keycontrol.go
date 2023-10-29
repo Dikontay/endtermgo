@@ -3,8 +3,8 @@ package internal
 import (
 	"fmt"
 	"os"
+	"os/exec"
 	"os/signal"
-	"strconv"
 	"sync"
 	"syscall"
 	"time"
@@ -18,7 +18,7 @@ var (
 	stopAnimation   chan bool
 )
 
-func Keycontrol(animal *AnimalContext, timer *Timer) {
+func Keycontrol(animal *AnimalContext) {
 	err := termbox.Init()
 	if err != nil {
 		panic(err)
@@ -30,7 +30,6 @@ func Keycontrol(animal *AnimalContext, timer *Timer) {
 
 	go runAnimation(animal)
 
-	// Handle signals to gracefully stop the animation
 	signalCh := make(chan os.Signal, 1)
 	signal.Notify(signalCh, os.Interrupt, syscall.SIGTERM)
 	go func() {
@@ -38,23 +37,21 @@ func Keycontrol(animal *AnimalContext, timer *Timer) {
 		stopAnimation <- true
 	}()
 
-	// Main loop for user input
-mainLoop:
+
+mainLoop: 	// Main loop for user input
 	for {
 		switch ev := termbox.PollEvent(); ev.Type {
+		
 		case termbox.EventKey:
 			if ev.Key == termbox.KeyEsc {
 				break mainLoop
 			}
-			// Handle other key events as needed
-			timer.updateState(time.Now().Second())
-			fmt.Println(strconv.Itoa(animal.Behavior.GetFood()) + " " + strconv.Itoa(animal.Behavior.GetCleanness()) + " " +strconv.Itoa(animal.Behavior.GetMood()))
 			handleKeyEvent(ev, animal)
 		}
 	}
 
-	// Stop the animation and wait for it to finish
-	stopAnimation <- true
+	
+	stopAnimation <- true	// Stop the animation and wait for it to finish
 	animationMutex.Lock()
 }
 
@@ -72,9 +69,8 @@ func runAnimation(animal *AnimalContext) {
 }
 
 func printAnimation(animal *AnimalContext) {
-	// Replace this with your animation logic
 	fmt.Print("\033[H") // Move cursor to the top-left corner of the screen
-	
+
 	fmt.Print("Food: ")
 	for i := 0; i < animal.Behavior.GetFood(); i++ {
 		fmt.Print(string('⭓'))
@@ -95,11 +91,14 @@ func printAnimation(animal *AnimalContext) {
 
 	animal.Behavior.Print()
 	fmt.Printf("1) Feed 	2) Clean	3) Play		4) Shop: \n")
+
+	time.Sleep(time.Second)
+	cmd := exec.Command("cmd", "/c", "cls")
+    cmd.Stdout = os.Stdout
+    cmd.Run()
 }
 
 func handleKeyEvent(ev termbox.Event, animal *AnimalContext) {
-	// Handle user input events as needed
-	// You can add logic here to respond to specific key presses
 	switch ev.Ch {
 	case '1' :
 		animal.Behavior.ChangeEat(true)
