@@ -39,8 +39,6 @@ func Start() {
 
 	go timer.updateState()
 	Keycontrol(animalContext)
-
-
 }
 
 func createAnimal(num string) AnimalStaregy {

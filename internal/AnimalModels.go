@@ -263,6 +263,6 @@ func (d *Owl) GetTimeToPlay() int {
 }
 
 func (d *Bear) GetTimeToPlay() int {
-	return d.GetTimeToPlay()
+	return d.TimeToPlay
 }
 //////////////////////////////////////////////////////////////////
