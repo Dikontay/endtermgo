@@ -48,14 +48,13 @@ func createAnimal(num string) AnimalStaregy {
 
 	switch num {
 	case "1":
-		behavior = &Dog{Clean: 10, Food: 10, Mood: 10, TimeToBeDirty: 4, TimeToEat: 6, TimeToPlay: 3, killer: Killer{}}
+		behavior = newDog()
 	case "2":
-		behavior = &Owl{Clean: 10, Food: 10, Mood: 10, TimeToBeDirty: 10, TimeToEat: 12, TimeToPlay: 12, killer: Killer{}}
+		behavior = newOwl()
 	case "3":
-		behavior = &Bear{Clean: 10, Food: 10, Mood: 10, TimeToBeDirty: 20, TimeToEat: 2, TimeToPlay: 6, killer: Killer{}}
+		behavior = newBear()
 	case "4":
-		behavior = &Cat{Clean: 10, Food: 10, Mood: 10, TimeToBeDirty: 6, TimeToEat: 4, TimeToPlay: 8, killer: Killer{}}
-	// Add cases for other animal types
+		behavior = newCat()
 	default:
 		return nil
 	}
