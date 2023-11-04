@@ -31,6 +31,7 @@ func Start() {
 	// Create an instance of Animal and set its behavior
 	animalContext := &AnimalContext{ //Wrapping animal object into context
 		Behavior: animalBehavior,
+		killer: Killer{},
 	}
 	timer := &Timer{
 		secondSinceStart:   time.Now(),
@@ -47,13 +48,13 @@ func createAnimal(num string) AnimalStaregy {
 
 	switch num {
 	case "1":
-		behavior = &Dog{Clean: 10, Food: 10, Mood: 10, TimeToBeDirty: 4, TimeToEat: 6, TimeToPlay: 3}
+		behavior = &Dog{Clean: 10, Food: 10, Mood: 10, TimeToBeDirty: 4, TimeToEat: 6, TimeToPlay: 3, killer: Killer{}}
 	case "2":
-		behavior = &Owl{Clean: 10, Food: 10, Mood: 10, TimeToBeDirty: 10, TimeToEat: 12, TimeToPlay: 12}
+		behavior = &Owl{Clean: 10, Food: 10, Mood: 10, TimeToBeDirty: 10, TimeToEat: 12, TimeToPlay: 12, killer: Killer{}}
 	case "3":
-		behavior = &Bear{Clean: 10, Food: 10, Mood: 10, TimeToBeDirty: 20, TimeToEat: 2, TimeToPlay: 6}
+		behavior = &Bear{Clean: 10, Food: 10, Mood: 10, TimeToBeDirty: 20, TimeToEat: 2, TimeToPlay: 6, killer: Killer{}}
 	case "4":
-		behavior = &Cat{Clean: 10, Food: 10, Mood: 10, TimeToBeDirty: 6, TimeToEat: 4, TimeToPlay: 8}
+		behavior = &Cat{Clean: 10, Food: 10, Mood: 10, TimeToBeDirty: 6, TimeToEat: 4, TimeToPlay: 8, killer: Killer{}}
 	// Add cases for other animal types
 	default:
 		return nil

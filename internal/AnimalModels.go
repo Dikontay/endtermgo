@@ -4,6 +4,7 @@ package internal
 
 type AnimalContext struct {
 	Behavior AnimalStaregy
+	killer Killer
 }
 
 type AnimalStaregy interface {
@@ -19,6 +20,7 @@ type AnimalStaregy interface {
 	GetFood() int
 	GetCleanness() int
 
+	notifyKiller()
 	Print()
 }
 
@@ -30,6 +32,8 @@ type Dog struct {
 	TimeToBeDirty int
 	TimeToEat     int
 	TimeToPlay    int
+
+	killer Killer
 }
 
 type Bear struct {
@@ -40,6 +44,8 @@ type Bear struct {
 	TimeToBeDirty int
 	TimeToEat     int
 	TimeToPlay    int
+
+	killer Killer
 }
 
 type Owl struct {
@@ -50,6 +56,8 @@ type Owl struct {
 	TimeToBeDirty int
 	TimeToEat     int
 	TimeToPlay    int
+
+	killer Killer
 }
 
 type Cat struct {
@@ -60,6 +68,8 @@ type Cat struct {
 	TimeToBeDirty int
 	TimeToEat     int
 	TimeToPlay    int
+
+	killer Killer
 }
 
 func (d *Bear) ChangeEat(b bool) {
@@ -67,6 +77,9 @@ func (d *Bear) ChangeEat(b bool) {
 		d.Food++
 	} else {
 		d.Food--
+		if d.Food == 0{
+			d.notifyKiller()
+		}
 	}
 }
 
@@ -75,6 +88,9 @@ func (d *Bear) ChangeCleanness(b bool) {
 		d.Clean++
 	} else {
 		d.Clean--
+		if d.Clean == 0{
+			d.notifyKiller()
+		}
 	}
 }
 
@@ -83,6 +99,9 @@ func (d *Bear) ChangeMood(b bool) {
 		d.Mood++
 	} else {
 		d.Mood--
+		if d.Mood == 0{
+			d.notifyKiller()
+		}
 	}
 }
 
@@ -95,6 +114,9 @@ func (d *Owl) ChangeEat(b bool) {
 		d.Food++
 	} else {
 		d.Food--
+		if d.Food == 0{
+			d.notifyKiller()
+		}
 	}
 }
 
@@ -103,6 +125,9 @@ func (d *Owl) ChangeCleanness(b bool) {
 		d.Clean++
 	} else {
 		d.Clean--
+		if d.Clean == 0{
+			d.notifyKiller()
+		}
 	}
 }
 
@@ -111,6 +136,9 @@ func (d *Owl) ChangeMood(b bool) {
 		d.Mood++
 	} else {
 		d.Mood--
+		if d.Mood == 0{
+			d.notifyKiller()
+		}
 	}
 }
 
@@ -123,6 +151,9 @@ func (d *Dog) ChangeEat(b bool) {
 		d.Food++
 	} else {
 		d.Food--
+		if d.Food == 0{
+			d.notifyKiller()
+		}
 	}
 }
 
@@ -131,6 +162,9 @@ func (d *Dog) ChangeCleanness(b bool) {
 		d.Clean++
 	} else {
 		d.Clean--
+		if d.Clean == 0{
+			d.notifyKiller()
+		}
 	}
 }
 
@@ -139,6 +173,9 @@ func (d *Dog) ChangeMood(b bool) {
 		d.Mood++
 	} else {
 		d.Mood--
+		if d.Mood == 0{
+			d.notifyKiller()
+		}
 	}
 }
 
@@ -151,6 +188,9 @@ func (d *Cat) ChangeEat(b bool) {
 		d.Food++
 	} else {
 		d.Food--
+		if d.Food == 0{
+			d.notifyKiller()
+		}
 	}
 }
 
@@ -159,6 +199,9 @@ func (d *Cat) ChangeCleanness(b bool) {
 		d.Clean++
 	} else {
 		d.Clean--
+		if d.Clean == 0{
+			d.notifyKiller()
+		}
 	}
 }
 
@@ -167,6 +210,9 @@ func (d *Cat) ChangeMood(b bool) {
 		d.Mood++
 	} else {
 		d.Mood--
+		if d.Mood == 0{
+			d.notifyKiller()
+		}
 	}
 }
 
@@ -268,5 +314,21 @@ func (d *Owl) GetTimeToPlay() int {
 
 func (d *Bear) GetTimeToPlay() int {
 	return d.TimeToPlay
+}
+
+func (d *Dog) notifyKiller(){
+	d.killer.kill()
+}
+
+func (d *Cat) notifyKiller(){
+	d.killer.kill()
+}
+
+func (d *Owl) notifyKiller(){
+	d.killer.kill()
+}
+
+func (d *Bear) notifyKiller(){
+	d.killer.kill()
 }
 //////////////////////////////////////////////////////////////////
