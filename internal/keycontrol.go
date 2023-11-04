@@ -37,7 +37,6 @@ func Keycontrol(animal *AnimalContext) {
 		stopAnimation <- true
 	}()
 
-
 	eventQueue := make(chan termbox.Event)
 	go func() {
 		for {
@@ -45,20 +44,19 @@ func Keycontrol(animal *AnimalContext) {
 		}
 	}()
 
-mainLoop: 	// Main loop for user input
+mainLoop: // Main loop for user input
 	for {
-		switch ev := <-eventQueue;{
-		
-		case  ev.Type == termbox.EventKey:
-			if ev.Key == termbox.KeyEsc{
+		switch ev := <-eventQueue; {
+
+		case ev.Type == termbox.EventKey:
+			if ev.Key == termbox.KeyEsc {
 				break mainLoop
 			}
 			handleKeyEvent(ev, animal)
 		}
 	}
 
-	
-	stopAnimation <- true	// Stop the animation and wait for it to finish
+	stopAnimation <- true // Stop the animation and wait for it to finish
 	animationMutex.Lock()
 }
 
@@ -102,13 +100,13 @@ func printAnimation(animal *AnimalContext) {
 
 	time.Sleep(time.Second)
 	cmd := exec.Command("cmd", "/c", "cls")
-    cmd.Stdout = os.Stdout
-    cmd.Run()
+	cmd.Stdout = os.Stdout
+	cmd.Run()
 }
 
 func handleKeyEvent(ev termbox.Event, animal *AnimalContext) {
 	switch ev.Ch {
-	case '1' :
+	case '1':
 		animal.Behavior.ChangeEat(true)
 		break
 	case '2':
@@ -117,9 +115,38 @@ func handleKeyEvent(ev termbox.Event, animal *AnimalContext) {
 	case '3':
 		animal.Behavior.ChangeMood(true)
 		break
+	case '4':
+		handleShopOption(animal)
+		break
 	default:
 		fmt.Println("Wrong Button!")
 	}
 
 	fmt.Printf("you pressed %c\n", ev.Ch)
+}
+func handleShopOption(animal *AnimalContext) {
+	fmt.Println("Welcome to the Shop!")
+	fmt.Println("Choose an accessory: 1) Hat 2) Cap 3) Official")
+
+	var accessoryOption string
+	_, err := fmt.Scan(&accessoryOption)
+	handleErrors(err)
+
+	builder := NewAccessoryBuilder(animal.Behavior)
+
+	switch accessoryOption {
+	case "1":
+		builder.AddHat()
+	case "2":
+		builder.AddCap()
+	case "3":
+		builder.AddOfficial()
+	default:
+		fmt.Println("Invalid accessory choice.")
+		return
+	}
+
+	animal.Behavior = builder.Build()
+
+	fmt.Println("Accessory added!")
 }
