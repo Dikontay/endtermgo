@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"os"
 	"time"
+	//"time"
 )
 
 func Start() {
@@ -28,11 +29,14 @@ func Start() {
 		return
 	}
 
-	// Create an instance of Animal and set its behavior
+	//Create an instance of Animal and set its behavior
 	animalContext := &AnimalContext{ //Wrapping animal object into context
 		Behavior: animalBehavior,
 		killer: Killer{},
 	}
+
+	animalContext.Behavior.Print()
+
 	timer := &Timer{
 		secondSinceStart:   time.Now(),
 		animal: animalBehavior,

@@ -16,9 +16,12 @@ var (
 	animationTicker *time.Ticker
 	animationMutex  sync.Mutex
 	stopAnimation   chan bool
+	isShop 			bool
 )
 
 func Keycontrol(animal *AnimalContext) {
+	isShop = false
+	
 	err := termbox.Init()
 	if err != nil {
 		panic(err)
@@ -53,7 +56,11 @@ mainLoop: 	// Main loop for user input
 			if ev.Key == termbox.KeyEsc{
 				break mainLoop
 			}
-			handleKeyEvent(ev, animal)
+			if !isShop{ 
+				handleKeyEvent(ev, animal)
+			} else {
+				ShophandleKeyEvent(ev, animal)
+			}
 		}
 	}
 
@@ -117,6 +124,56 @@ func handleKeyEvent(ev termbox.Event, animal *AnimalContext) {
 	case '3':
 		animal.Behavior.ChangeMood(true)
 		break
+	case '4':
+		isShop = true
+		stopAnimation <- true
+		go runShopAnimation(animal)
+
+	default:
+		fmt.Println("Wrong Button!")
+	}
+
+	fmt.Printf("you pressed %c\n", ev.Ch)
+}
+
+func runShopAnimation(animal *AnimalContext){
+	for {
+		select {
+		case <-stopAnimation:
+			return
+		case <-animationTicker.C:
+			animationMutex.Lock()
+			printShopAnimation(animal)
+			animationMutex.Unlock()
+		}
+	}
+}
+
+func printShopAnimation(animal *AnimalContext) {
+	fmt.Println("Buy: 1) Hat	2) Boots	3) Umbrella    4) Return to pet")
+	time.Sleep(time.Second)
+	cmd := exec.Command("cmd", "/c", "cls")
+    cmd.Stdout = os.Stdout
+    cmd.Run()
+}
+
+func ShophandleKeyEvent(ev termbox.Event, animal *AnimalContext) {
+	switch ev.Ch {
+	case '1' :
+		setUpdatedInstance(&AnimalContext{Behavior: &Hat{animal: animal.Behavior}, killer: Killer{}})
+		break
+	case '2':
+		setUpdatedInstance(&AnimalContext{Behavior: &Hat{animal: animal.Behavior}, killer: Killer{}})
+		break
+	case '3':
+		setUpdatedInstance(&AnimalContext{Behavior: &Hat{animal: animal.Behavior}, killer: Killer{}})
+		break
+	case '4':
+		isShop = false
+		stopAnimation <- true
+		go runAnimation(animalContext)
+		
+
 	default:
 		fmt.Println("Wrong Button!")
 	}
