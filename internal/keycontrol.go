@@ -87,9 +87,10 @@ func printAnimation(animal *AnimalContext) {
 	for i := 0; i < animal.Behavior.GetMood(); i++ {
 		fmt.Print(string('⭓'))
 	}
-	fmt.Println()
+	fmt.Print("\n\n")
 
 	animal.Behavior.Print()
+	fmt.Print("\n\n")
 	fmt.Printf("1) Feed 	2) Clean	3) Play		4) Shop: \n")
 
 	time.Sleep(time.Second)

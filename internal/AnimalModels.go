@@ -63,7 +63,7 @@ type Cat struct {
 }
 
 func (d *Bear) ChangeEat(b bool) {
-	if b {
+	if b && d.Food != 10 {
 		d.Food++
 	} else {
 		d.Food--
@@ -71,7 +71,7 @@ func (d *Bear) ChangeEat(b bool) {
 }
 
 func (d *Bear) ChangeCleanness(b bool) {
-	if b {
+	if b && d.Clean != 10 {
 		d.Clean++
 	} else {
 		d.Clean--
@@ -79,7 +79,7 @@ func (d *Bear) ChangeCleanness(b bool) {
 }
 
 func (d *Bear) ChangeMood(b bool) {
-	if b {
+	if b && d.Mood != 10 {
 		d.Mood++
 	} else {
 		d.Mood--
@@ -91,7 +91,7 @@ func (d *Bear) Print() {
 }
 
 func (d *Owl) ChangeEat(b bool) {
-	if b {
+	if b && d.Food != 10 {
 		d.Food++
 	} else {
 		d.Food--
@@ -99,7 +99,7 @@ func (d *Owl) ChangeEat(b bool) {
 }
 
 func (d *Owl) ChangeCleanness(b bool) {
-	if b {
+	if b && d.Clean != 10 {
 		d.Clean++
 	} else {
 		d.Clean--
@@ -107,7 +107,7 @@ func (d *Owl) ChangeCleanness(b bool) {
 }
 
 func (d *Owl) ChangeMood(b bool) {
-	if b {
+	if b && d.Mood != 10 {
 		d.Mood++
 	} else {
 		d.Mood--
@@ -119,7 +119,7 @@ func (d *Owl) Print() {
 }
 
 func (d *Dog) ChangeEat(b bool) {
-	if b {
+	if b && d.Food != 10 {
 		d.Food++
 	} else {
 		d.Food--
@@ -127,7 +127,7 @@ func (d *Dog) ChangeEat(b bool) {
 }
 
 func (d *Dog) ChangeCleanness(b bool) {
-	if b {
+	if b && d.Clean != 10 {
 		d.Clean++
 	} else {
 		d.Clean--
@@ -135,7 +135,7 @@ func (d *Dog) ChangeCleanness(b bool) {
 }
 
 func (d *Dog) ChangeMood(b bool) {
-	if b {
+	if b && d.Mood != 10 {
 		d.Mood++
 	} else {
 		d.Mood--
@@ -146,28 +146,32 @@ func (d *Dog) Print() {
 	PrintAnimalPicture("dog")
 }
 
-func (c *Cat) ChangeEat(b bool) {
-	if b {
-		c.Food++
+func (d *Cat) ChangeEat(b bool) {
+	if b && d.Food != 10 {
+		d.Food++
 	} else {
-		c.Food--
+		d.Food--
 	}
 }
 
-func (c *Cat) ChangeCleanness(b bool) {
-	if b {
-		c.Clean++
+func (d *Cat) ChangeCleanness(b bool) {
+	if b && d.Clean != 10 {
+		d.Clean++
 	} else {
-		c.Clean--
+		d.Clean--
 	}
 }
 
-func (c *Cat) ChangeMood(b bool) {
-	if b {
-		c.Mood++
+func (d *Cat) ChangeMood(b bool) {
+	if b && d.Mood != 10 {
+		d.Mood++
 	} else {
-		c.Mood--
+		d.Mood--
 	}
+}
+
+func (d *Cat) Print() {
+	PrintAnimalPicture("cat")
 }
 
 func (d *Dog) GetCleanness() int {

@@ -4,6 +4,7 @@ import (
 	"time"
 )
 
+//-----------Timer Observable---------------//
 type Itimer interface {
 	notify()
 	updateState()
@@ -37,5 +38,17 @@ func (t *Timer) updateState() {
 		}
 		time.Sleep(time.Second)
 	}
+	
+}
+//---------------------------------//
+
+//----------Killer-observer--------//
+type IKiller interface{
+	kill()
+}
+
+type Killer struct {}
+
+func (l *Killer) kill(){
 	
 }

@@ -9,7 +9,7 @@ import (
 
 func Start() {
 	fmt.Println("HELLO PLEASE CHOOSE THE TYPE OF ANIMAL")
-	fmt.Println("1. DOG 2. Owl 3. BEAR ")
+	fmt.Println("1. DOG 2. Owl 3. Bear 4. Cat")
 
 	var option string
 
@@ -52,6 +52,8 @@ func createAnimal(num string) AnimalStaregy {
 		behavior = &Owl{Clean: 10, Food: 10, Mood: 10, TimeToBeDirty: 10, TimeToEat: 12, TimeToPlay: 12}
 	case "3":
 		behavior = &Bear{Clean: 10, Food: 10, Mood: 10, TimeToBeDirty: 20, TimeToEat: 2, TimeToPlay: 6}
+	case "4":
+		behavior = &Cat{Clean: 10, Food: 10, Mood: 10, TimeToBeDirty: 6, TimeToEat: 4, TimeToPlay: 8}
 	// Add cases for other animal types
 	default:
 		return nil
