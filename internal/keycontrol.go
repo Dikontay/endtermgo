@@ -38,12 +38,19 @@ func Keycontrol(animal *AnimalContext) {
 	}()
 
 
+	eventQueue := make(chan termbox.Event)
+	go func() {
+		for {
+			eventQueue <- termbox.PollEvent()
+		}
+	}()
+
 mainLoop: 	// Main loop for user input
 	for {
-		switch ev := termbox.PollEvent(); ev.Type {
+		switch ev := <-eventQueue;{
 		
-		case termbox.EventKey:
-			if ev.Key == termbox.KeyEsc {
+		case  ev.Type == termbox.EventKey:
+			if ev.Key == termbox.KeyEsc{
 				break mainLoop
 			}
 			handleKeyEvent(ev, animal)
@@ -91,7 +98,7 @@ func printAnimation(animal *AnimalContext) {
 
 	animal.Behavior.Print()
 	fmt.Print("\n\n")
-	fmt.Printf("1) Feed 	2) Clean	3) Play		4) Shop: \n")
+	fmt.Printf("1) Feed 	2) Clean	3) Play		4) Shop \n")
 
 	time.Sleep(time.Second)
 	cmd := exec.Command("cmd", "/c", "cls")

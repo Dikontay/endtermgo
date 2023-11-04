@@ -2,6 +2,8 @@ package internal
 
 import (
 	"fmt"
+	"os"
+	"os/exec"
 	"time"
 )
 
@@ -51,7 +53,10 @@ type IKiller interface{
 type Killer struct {}
 
 func (l *Killer) kill(){
-	stopAnimation <- true
+	cmd := exec.Command("cmd", "/c", "cls")
+    cmd.Stdout = os.Stdout
+    cmd.Run()
+	
 	fmt.Println(" ███████████████████████████\n",
 				"███████▀▀▀░░░░░░░▀▀▀███████\n",
 				"████▀░░░░░░░░░░░░░░░░░▀████\n",
@@ -72,4 +77,7 @@ func (l *Killer) kill(){
 				"██████████▄▄▄▄▄▄▄██████████\n",
 				"███████████████████████████\n",
 				"You are irresponisble owner >:(")
+				os.Exit(0)
 }
+
+//---------------------------------//
